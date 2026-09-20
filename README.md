@@ -10,10 +10,10 @@ The game has been converted to run as a Cloudflare Worker. The parameters of the
 
 In addition to those variables, there are a number of secrets that must be set (using `npx wrangler secret put`):
 
- - AI_API_KEY: API key for the OpenAI-compatible primary provider (optional; falls back to Workers AI)
- - AI_BASE_URL: Base URL, e.g. `https://api.openai.com/v1` (optional; falls back to Workers AI)
- - CF_API_TOKEN: Cloudflare API token (Workers AI fallback)
- - CF_ACCOUNT_ID: Cloudflare account id (Workers AI fallback)
- - TURNSTILE_SECRET: Turnstile widget secret key
+ - `AI_API_KEY`: API key for the OpenAI-compatible primary provider (optional; falls back to Workers AI)
+ - `AI_BASE_URL`: Base URL, e.g. `https://api.openai.com/v1` (optional; falls back to Workers AI)
+ - `CF_API_TOKEN`: Cloudflare API token (Workers AI fallback)
+ - `CF_ACCOUNT_ID`: Cloudflare account id (Workers AI fallback)
+ - `TURNSTILE_SECRET`: Turnstile widget secret key
 
 Once these are set, you should be able to submit warriors to the hill and begin battle rounds.
