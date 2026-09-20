@@ -165,3 +165,6 @@ dist
 .env*
 !.env.example
 .wrangler/
+
+# esbuild bundle output for test:e2e
+.e2e.bundle.mjs

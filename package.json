@@ -2,15 +2,19 @@
   "name": "prompt-wars",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
-    "cf-typegen": "wrangler types"
-  },
-  "devDependencies": {
-    "@types/node": "^24.13.5",
-    "typescript": "^5.5.2",
-    "wrangler": "^4.129.0"
-  }
+"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"cf-typegen": "wrangler types",
+		"typecheck": "tsc --noEmit",
+		"test": "tsc --noEmit",
+		"test:e2e": "esbuild scripts/e2e.mjs --bundle --platform=node --format=esm --outfile=.e2e.bundle.mjs --log-level=error && node .e2e.bundle.mjs"
+	},
+	"devDependencies": {
+		"@types/node": "^24.13.5",
+		"esbuild": "^0.25.0",
+		"typescript": "^5.5.2",
+		"wrangler": "^4.129.0"
+	}
 }

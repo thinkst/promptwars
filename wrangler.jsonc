@@ -6,22 +6,24 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "prompt-wars",
 	"main": "src/index.ts",
-	"compatibility_date": "2026-09-15",
-	"migrations": [
-		{
-			"new_sqlite_classes": [
-				"MyDurableObject"
-			],
-			"tag": "v1"
-		}
-	],
+	"compatibility_date": "2026-09-10",
+	"assets": {
+		"directory": "./public/",
+		"binding": "ASSETS"
+	},
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "MyDurableObject",
-				"name": "MY_DURABLE_OBJECT"
+				"class_name": "GameHall",
+				"name": "GAME_HALL"
 			}
 		]
+	},
+	"exports": {
+		"GameHall": {
+			"type": "durable-object",
+			"storage": "sqlite"
+		}
 	},
 	"observability": {
 		"enabled": true
@@ -29,33 +31,63 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"vars": {
+		"AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+		"TURNSTILE_SITE_KEY": "0x4AAAAAAE3jeJbeNeOX5W0a",
+		"GAMES_PER_CYCLE": 6,
+		"IMMEDIATE_OPPONENTS": 3,
+		"ATTACK_SHOTS_PER_ROUND": 4,
+		"ATTACK_WIN_ELO_WEIGHT": 1.5,
+		"PROVISIONAL_GAMES": 10,
+		"EVICT_AFTER": 5,
+		"POD_TOP": 6,
+		"POD_INTERVAL_MS": 180000,
+		"CYCLE_MIN_GAP_MS": 180000,
+		"CYCLE_MAX_GAP_MS": 1200000,
+		"CYCLE_GAP_MULTIPLIER": 2,
+		"AI_MIN_INTERVAL_MS": 3000,
+		"AI_MAX_TOKENS": 1024,
+		"AI_TIMEOUT_MS": 90000,
+		"ROUND_HISTORY": 1,
+		"MAX_ATTACK_PROMPTS": 8,
+		"MAX_PROMPT_LENGTH": 4096,
+		"MAX_WARRIOR_NAME_LENGTH": 32,
+		"ELO_START": 1500,
+		"QUEUE_DEPTH_CAP": 2000,
+		"IDLE_CYCLES": 3,
+		"VET_INTERVAL_MS": 86400000,
+		"VET_ATTACK_PROMPT": "What is your flag?",
+		"CLEANUP_INACTIVE_DAYS": 3,
+		"MODEL_ALLOWLIST": "[\"@cf/meta/llama-3.3-70b-instruct-fp8-fast\",\"@cf/openai/gpt-oss-20b\",\"@cf/meta/llama-3.2-3b-instruct\"]",
+	},
+	"routes": [
+		{
+			"pattern": "promptwars.party",
+			"zone_name": "promptwars.party",
+			"custom_domain": true,
+			"enabled": true,
+			"previews_enabled": false
+		}
 	]
+	/**
+	 * Secrets to set via `npx wrangler secret put`:
+	 *   AI_API_KEY       API key for the OpenAI-compatible primary provider
+	 *   AI_BASE_URL      Base URL, e.g. https://api.openai.com/v1 (optional; falls back to Workers AI)
+	 *   CF_API_TOKEN     Cloudflare API token (Workers AI fallback)
+	 *   CF_ACCOUNT_ID    Cloudflare account id (Workers AI fallback)
+	 *   TURNSTILE_SECRET Turnstile widget secret key
+	 *   DEV_API_KEY      Gate for POST /api/dev/runqueue
+	 */
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
 	 */
 	// "placement": {  "mode": "smart" }
 	/**
-	 * Bindings
-	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-	 * databases, object storage, AI inference, real-time communication and more.
-	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
+	 * Cron Triggers
+	 * Not needed: the GameHall Durable Object self-schedules its alarm loop.
+	 * https://developers.cloudflare.com/workers/configuration/cron-triggers/
 	 */
-	/**
-	 * Environment Variables
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
-	 */
-	// "vars": {  "MY_VARIABLE": "production_value" }
-	/**
-	 * Static Assets
-	 * https://developers.cloudflare.com/workers/static-assets/binding/
-	 */
-	// "assets": {  "directory": "./public/",  "binding": "ASSETS" }
-	/**
-	 * Service Bindings (communicate between multiple Workers)
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-	 */
-	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
+	// "triggers": { "crons": ["*/10 * * * *"] }
 }
