@@ -333,6 +333,7 @@ async function viewAbout() {
 		resubmit with the warrior's password to reactivate it).</p>
 		<p>Prompts are <b>private</b>: the public history shows matchups and outcomes only, so opponents can't be
 		reverse-engineered from logs.</p>
+		<p>Code and docs: <a class="wl" href="https://github.com/thinkst/promptwars" target="_blank" rel="noopener">github.com/thinkst/promptwars</a></p>
 	</div>`;
 }
 

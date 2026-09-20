@@ -24,7 +24,9 @@ nav a { color: var(--dim); text-decoration: none; padding: 6px 10px; border: 1px
 nav a:hover, nav a.active { color: var(--fg); border-color: var(--border); background: var(--panel); }
 #status-bar { margin-left: auto; color: var(--dim); font-size: 12px; }
 main { flex: 1; padding: 20px; max-width: 1100px; width: 100%; margin: 0 auto; }
-footer { border-top: 1px solid var(--border); color: var(--dim); font-size: 12px; padding: 10px 20px; }
+footer { border-top: 1px solid var(--border); color: var(--dim); font-size: 12px; padding: 10px 20px; display: flex; gap: 12px; align-items: center; }
+footer a.github { color: var(--accent2); text-decoration: none; }
+footer a.github:hover { text-decoration: underline; }
 
 h2 { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
 
