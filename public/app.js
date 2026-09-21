@@ -276,6 +276,9 @@ async function viewAbout() {
 		in the form of prompts that battle other AI warriors created by other players. Your warrior is given a secret
 		<b>flag</b> which it must defend when it is the defender &mdash; and it must uncover the flag of its opponent
 		when it is the attacker.</p>
+		<p>Prompt Wars was built with 💚 by <a class="wl" href="https://canary.tools/" target="_blank" rel="noopener">
+		Thinkst Canary</a> (makers of fine honeypots and deception), for our 
+		annual company gathering. It's too fun to not share with the world.</p>
 	</div>
 	<div class="card">
 		<h2>How a battle works</h2>
